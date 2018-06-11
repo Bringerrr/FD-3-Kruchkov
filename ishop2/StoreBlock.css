@@ -2,6 +2,12 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  overflow: hidden;
+  outline: 0 !important;
+}
+
+button::-moz-focus-inner {
+  border: 0;
 }
 
 a{
@@ -10,10 +16,12 @@ a{
 }
 
 .storeContainer{
-  border: double gray 3px;
+  border: solid gray 0.15vw;
   float: left;
   padding: 15px 15px;
-  background-color: #F0F0F0;
+  background-color: rgba(175, 196, 206, 0.964);
+  font-family: 'Cormorant Unicase', serif;
+  font-weight: 500;
 }
 
 .StoreBlock .Question
@@ -27,9 +35,10 @@ a{
 .StoreBlock .items
 {
   padding-top: 5px;
+  margin-bottom: 20px;
 }
 .StoreBlock .items .item:hover{
-  background-color: rgba(255,0,0,0.25);
+  background-color: rgba(230, 222, 222, 0.349);
   outline: 1px solid black
 }
 
@@ -37,6 +46,8 @@ a{
 .StoreBlock .items .item
 {
   padding: 2px 0;
+  max-height: 20px;
+ 
 }
 
 .StoreBlock .items .item span,
@@ -45,6 +56,7 @@ a{
 .StoreBlock .Header .HeaderItems input{
   display: inline-block;
   width: 80px;
+  vertical-align: top;
 }
 
 .StoreBlock .items .item span:not(:last-child),
@@ -72,12 +84,52 @@ a{
 
 .storeContainer {
   position: relative;
-float: left;
+  float: left;
+}
+
+.storeButt,
+.infoItemButton{
+  display: inline-block;
+  position: relative;
+  min-width: 20%;
+  padding: 0.3vw;
+  transition: all 300ms ease;
+  border:0.4px solid black;
+  font-family: 'Cormorant Unicase', serif;
+  font-weight: 700;
+}
+
+.storeButt:hover{
+  display: block;
+  transform: scale(1.15);
 }
 
 .infoItem{
   display: block;
+  position: relative;
   width: 60px;
+  margin-bottom: 5px;
   background-color:transparent;
 }
+
+
+.imgCont{
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border: 0.5px solid black;
+}
+
+.imgCont img{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+}
+
+.wrapper{
+  display: block;
+  display: inline-block;
+}
+
 

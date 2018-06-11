@@ -74,26 +74,32 @@
       inputs[i].style.background = "transparent"
       valueArr.push(inputs[i].value)
     }
-    console.log(valueArr)
-    console.log()
-    var edRow = {text:valueArr[0], code: this.state.selectedItemCode, url:valueArr[3], price: valueArr[1], count:valueArr[2] }
+    // console.log(valueArr)
+    // console.log()
+    var edRow = {text:valueArr[0], code: this.state.selectedItemCode, 
+    url:valueArr[3], price: valueArr[1], count:valueArr[2] }
+    var currRow = this.props.items[this.state.selectedItemCode-1]
 
+    for(var m in edRow){
+      if(edRow[m]!=currRow[m]){
+        currRow[m] = edRow[m] 
+      }
+    }
+  
     this.setState ({editedRow:edRow})
+    this.editArg();
   },
 
-  editArg:function(EO){
-    console.log(EO.target.value)
-    console.log(EO.target)
-    console.log(this.state.editedRow)
+  editArg:function(){
   },
 
   render: function() {
     (this.state.currSelecteRow != null || undefined)
-      ?this.state.currSelecteRow.style.background = "red"
+      ?this.state.currSelecteRow.style.backgroundColor = "red"
       :null;
 
     (this.state.prevSelecteRow != null || undefined)
-      ?this.state.prevSelecteRow.style.background = "transparent"
+      ?this.state.prevSelecteRow.style.backgroundColor = "transparent"
       :null;
 
     console.log(this.state)
@@ -111,7 +117,7 @@
 
     var itemsCode=[];
     var cnt = 0;
-
+  
 
     this.props.items.forEach(a => {
       var item=a;
@@ -158,92 +164,175 @@
           React.DOM.div( {className:'Question'}, this.props.title ),
           React.DOM.div( {className:'Header'}, itemHeader ),
           React.DOM.div( {className:'items'}, itemsCode ),
-          React.DOM.input( {type:'button',value:'Добавить',onClick:this.add} ),
+          React.DOM.input( {className:'storeButt', type:'button',value:'Добавить',onClick:this.add} ),
         ),
 
         ((this.state.workMode == 2) && this.state.selectedItemCode ==1)
         ?React.DOM.div({className:'storeContainer'},
-          React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
-          defaultValue:iInfo[sIC].text,onChange:this.editArg} ),
-          React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
-          defaultValue:iInfo[sIC].price,onChange:this.editArg} ), 
-          React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
-          defaultValue:iInfo[sIC].count} ), 
-          React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
-          defaultValue:iInfo[sIC].url} ),
-          React.DOM.input( {className:"infoItemButton",type:"button", value:"Редактировать", onClick:this.startEdit} ),
-          (this.state.readOnly === false)
-            ?React.DOM.input( {className:"infoItemButton",type:"button", value:"Ok", onClick:this.endEdit} )
-            :null    
-        ) 
+          React.DOM.div({className:"cont"},
+            React.DOM.div({className:"wrapper"},
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].text} ),
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].price} ), 
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].count} ), 
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].url} ),
+            ),
+          React.DOM.div( {className:"imgCont", src:iInfo[sIC].url},
+            (iInfo[sIC].url != "#")
+            ?React.DOM.img({src:iInfo[sIC].url})
+            :null
+          )),
+
+          React.DOM.input( {className:"infoItemButton",type:"button", 
+            value:"Редактировать", onClick:this.startEdit} ),
+            (this.state.readOnly === false)
+              ?React.DOM.input( {className:"infoItemButton",type:"button", 
+              value:"Ok", onClick:this.endEdit} )
+              :null    
+        )
         :null ,
 
-        ((this.state.workMode == 2) && this.state.selectedItemCode == 2)
+        ((this.state.workMode == 2) && this.state.selectedItemCode ==2)
         ?React.DOM.div({className:'storeContainer'},
-          React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
-          defaultValue:iInfo[sIC].text} ),
-          React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
-          defaultValue:iInfo[sIC].price} ), 
-          React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
-          defaultValue:iInfo[sIC].count} ), 
-          React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
-          defaultValue:iInfo[sIC].url} ),
-          React.DOM.input( {className:"infoItemButton",type:"button", value:"Редактировать", onClick:this.startEdit} ),
-          (this.state.readOnly === false)
-            ?React.DOM.input( {className:"infoItemButton",type:"button", value:"Ok", onClick:this.endEdit} )
-            :null    
-        ) 
+          React.DOM.div({className:"cont"},
+            React.DOM.div({className:"wrapper"},
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].text} ),
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].price} ), 
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].count} ), 
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].url} ),
+            ),
+          React.DOM.div( {className:"imgCont", src:iInfo[sIC].url},
+            (iInfo[sIC].url != "#")
+            ?React.DOM.img({src:iInfo[sIC].url})
+            :null
+          )),
+
+          React.DOM.input( {className:"infoItemButton",type:"button", 
+            value:"Редактировать", onClick:this.startEdit} ),
+            (this.state.readOnly === false)
+              ?React.DOM.input( {className:"infoItemButton",type:"button", 
+              value:"Ok", onClick:this.endEdit} )
+              :null    
+        )
         :null ,
 
-        ((this.state.workMode == 2) && this.state.selectedItemCode == 3)
+        ((this.state.workMode == 2) && this.state.selectedItemCode ==3)
         ?React.DOM.div({className:'storeContainer'},
-          React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
-          defaultValue:iInfo[sIC].text} ),
-          React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
-          defaultValue:iInfo[sIC].price} ), 
-          React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
-          defaultValue:iInfo[sIC].count} ), 
-          React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
-          defaultValue:iInfo[sIC].url} ),
-          React.DOM.input( {className:"infoItemButton",type:"button", value:"Редактировать", onClick:this.startEdit} ),
-          (this.state.readOnly === false)
-            ?React.DOM.input( {className:"infoItemButton",type:"button", value:"Ok", onClick:this.endEdit} )
-            :null    
-        ) 
+          React.DOM.div({className:"cont"},
+            React.DOM.div({className:"wrapper"},
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].text} ),
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].price} ), 
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].count} ), 
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].url} ),
+            ),
+          React.DOM.div( {className:"imgCont", src:iInfo[sIC].url},
+            (iInfo[sIC].url != "#")
+            ?React.DOM.img({src:iInfo[sIC].url})
+            :null
+          )),
+
+          React.DOM.input( {className:"infoItemButton",type:"button", 
+            value:"Редактировать", onClick:this.startEdit} ),
+            (this.state.readOnly === false)
+              ?React.DOM.input( {className:"infoItemButton",type:"button", 
+              value:"Ok", onClick:this.endEdit} )
+              :null    
+        )
         :null ,
 
-        ((this.state.workMode == 2) && this.state.selectedItemCode == 4)
+        ((this.state.workMode == 2) && this.state.selectedItemCode ==4)
         ?React.DOM.div({className:'storeContainer'},
-          React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
-          defaultValue:iInfo[sIC].text} ),
-          React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
-          defaultValue:iInfo[sIC].price} ), 
-          React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
-          defaultValue:iInfo[sIC].count} ), 
-          React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
-          defaultValue:iInfo[sIC].url} ),
-          React.DOM.input( {className:"infoItemButton",type:"button", value:"Редактировать", onClick:this.startEdit} ),
-          (this.state.readOnly === false)
-            ?React.DOM.input( {className:"infoItemButton",type:"button", value:"Ok", onClick:this.endEdit} )
-            :null    
-        ) 
+          React.DOM.div({className:"cont"},
+            React.DOM.div({className:"wrapper"},
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].text} ),
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].price} ), 
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].count} ), 
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].url} ),
+            ),
+          React.DOM.div( {className:"imgCont", src:iInfo[sIC].url},
+            (iInfo[sIC].url != "#")
+            ?React.DOM.img({src:iInfo[sIC].url})
+            :null
+          )),
+
+          React.DOM.input( {className:"infoItemButton",type:"button", 
+            value:"Редактировать", onClick:this.startEdit} ),
+            (this.state.readOnly === false)
+              ?React.DOM.input( {className:"infoItemButton",type:"button", 
+              value:"Ok", onClick:this.endEdit} )
+              :null    
+        )
         :null ,
 
-        ((this.state.workMode == 2) && this.state.selectedItemCode == 5)
+        ((this.state.workMode == 2) && this.state.selectedItemCode ==5)
         ?React.DOM.div({className:'storeContainer'},
-          React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
-          defaultValue:iInfo[sIC].text} ),
-          React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
-          defaultValue:iInfo[sIC].price} ), 
-          React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
-          defaultValue:iInfo[sIC].count} ), 
-          React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
-          defaultValue:iInfo[sIC].url} ),
-          React.DOM.input( {className:"infoItemButton",type:"button", value:"Редактировать", onClick:this.startEdit} ),
-          (this.state.readOnly === false)
-            ?React.DOM.input( {className:"infoItemButton",type:"button", value:"Ok", onClick:this.endEdit} )
-            :null    
-        ) 
+          React.DOM.div({className:"cont"},
+            React.DOM.div({className:"wrapper"},
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].text} ),
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].price} ), 
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].count} ), 
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].url} ),
+            ),
+          React.DOM.div( {className:"imgCont", src:iInfo[sIC].url},
+            (iInfo[sIC].url != "#")
+            ?React.DOM.img({src:iInfo[sIC].url})
+            :null
+          )),
+
+          React.DOM.input( {className:"infoItemButton",type:"button", 
+            value:"Редактировать", onClick:this.startEdit} ),
+            (this.state.readOnly === false)
+              ?React.DOM.input( {className:"infoItemButton",type:"button", 
+              value:"Ok", onClick:this.endEdit} )
+              :null    
+        )
+        :null ,
+
+        ((this.state.workMode == 2) && this.state.selectedItemCode ==6)
+        ?React.DOM.div({className:'storeContainer'},
+          React.DOM.div({className:"cont"},
+            React.DOM.div({className:"wrapper"},
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].text} ),
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].price} ), 
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].count} ), 
+              React.DOM.input( {className:"infoItem", readOnly:this.state.readOnly, 
+              defaultValue:iInfo[sIC].url} ),
+            ),
+          React.DOM.div( {className:"imgCont", src:iInfo[sIC].url},
+            (iInfo[sIC].url != "#")
+            ?React.DOM.img({src:iInfo[sIC].url})
+            :null
+          )),
+
+          React.DOM.input( {className:"infoItemButton",type:"button", 
+            value:"Редактировать", onClick:this.startEdit} ),
+            (this.state.readOnly === false)
+              ?React.DOM.input( {className:"infoItemButton",type:"button", 
+              value:"Ok", onClick:this.endEdit} )
+              :null    
+        )
         :null ,
       )
     },
