@@ -47,7 +47,7 @@ a{
 {
   padding: 2px 0;
   max-height: 20px;
- 
+ cursor: pointer;
 }
 
 .StoreBlock .items .item span,
@@ -97,19 +97,36 @@ a{
   border:0.4px solid black;
   font-family: 'Cormorant Unicase', serif;
   font-weight: 700;
+  margin-right: 10px;
 }
 
 .storeButt:hover{
-  display: block;
   transform: scale(1.15);
 }
 
-.infoItem{
+.infoContainer{
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.infoContainer .infoItem{
   display: block;
   position: relative;
   width: 60px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   background-color:transparent;
+}
+
+.infoContainer .infoValid {
+  color: red;
+  font-size: 12px;
+  font-weight: 700;
+  display: block;
+  position: absolute;
+  top: 40%;
+  left: 67%;
+  transform: translateX(-50%);
 }
 
 
@@ -130,6 +147,21 @@ a{
 .wrapper{
   display: block;
   display: inline-block;
+  width: 100%;
+}
+
+.StoreBlock .Header .HeaderItems .Arrangement{
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 16.5%;
+  background: url(arr.png) no-repeat;
+  background-size: contain;
+  overflow: auto;
+}
+
+.StoreBlock .Header .HeaderItems{
+  position: relative;
 }
 
 
