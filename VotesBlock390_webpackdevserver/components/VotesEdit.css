@@ -1,0 +1,17 @@
+.VotesEdit{
+    position: absolute;
+    margin-top: 15px;
+}
+
+.VotesEdit div{
+    
+}
+
+.VotesEdit div input{
+    width: 100px;
+}
+
+.VotesEdit div span.name{
+    display: inline-block;
+    width: 90px;
+}

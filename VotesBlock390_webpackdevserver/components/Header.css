@@ -1,0 +1,8 @@
+div.Header{
+  padding: 1px 0;
+}
+
+div.Header > span{
+  float: left;
+  width: 25%;
+}

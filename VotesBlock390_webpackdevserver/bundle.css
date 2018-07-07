@@ -1,0 +1,70 @@
+*{
+
+}
+
+.VotesBlock
+{
+  border: double gray 3px;
+  width: 400px;
+  min-height: 100px;
+  padding: 3px 7px;
+  background-color: #F0F0F0;
+}
+
+.VotesBlock .Answers
+{
+  padding-top: 5px;
+}
+.VotesQuestion
+{
+  display: block;
+  font-weight: bold;
+}
+div.VotesBlockAnswer
+{
+  padding: 2px 0;
+  display: block;
+}
+
+div.VotesBlockAnswer .Count
+{
+  float: right;
+  width: 30px;
+  font-weight: bold;
+  text-align: right;
+}
+
+div.VotesBlockAnswer .Text
+{
+  margin-right: 30px;
+}
+
+div.VotesBlockAnswer input
+{
+  margin: 0 5px 0 0;
+}
+
+div.VotesBlockAnswer span
+{
+  display: block;
+  width: 20%;
+  float: left;
+}
+
+label.VotesBlockAnswer .FreeAnswer
+{
+  width: 150px;
+  margin-left: 18px;
+  vertical-align: 3px;
+}
+div.Header>div{
+  display: block;
+  padding: 20px 0;
+}
+
+div.Header > div > span{
+  display: block;
+  float: left;
+  width: 20%;
+}
+/*# sourceMappingURL=bundle.css.map*/

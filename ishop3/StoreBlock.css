@@ -1,0 +1,167 @@
+﻿*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  outline: 0 !important;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+}
+
+a{
+  text-decoration: none;
+  color: black  
+}
+
+.storeContainer{
+  border: solid gray 0.15vw;
+  float: left;
+  padding: 15px 15px;
+  background-color: rgba(175, 196, 206, 0.964);
+  font-family: 'Cormorant Unicase', serif;
+  font-weight: 500;
+}
+
+.StoreBlock .Question
+{
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+  padding: 4px 0;
+}
+
+.StoreBlock .items
+{
+  padding-top: 5px;
+  margin-bottom: 20px;
+}
+.StoreBlock .items .item:hover{
+  background-color: rgba(230, 222, 222, 0.349);
+  outline: 1px solid black
+}
+
+
+.StoreBlock .items .item
+{
+  padding: 2px 0;
+  max-height: 20px;
+ cursor: pointer;
+}
+
+.StoreBlock .items .item span,
+.StoreBlock .items .item input,
+.StoreBlock .Header .HeaderItems span,
+.StoreBlock .Header .HeaderItems input{
+  display: inline-block;
+  width: 80px;
+  vertical-align: top;
+}
+
+.StoreBlock .items .item span:not(:last-child),
+.StoreBlock .items .item input:not(:last-child),
+.StoreBlock .Header .HeaderItems span:not(:last-child),
+.StoreBlock .Header .HeaderItems input:not(:last-child){
+  margin-right: 20px
+}
+
+
+.StoreBlock .Header .HeaderItems span,
+.StoreBlock .Header .HeaderItems input{
+  border-bottom: 1px solid black;
+  padding-bottom: 5px;
+  font-weight: bold;
+}
+
+
+.StoreBlock .items .item span:not(:first-child),
+.StoreBlock .items .item input:not(:first-child),
+.StoreBlock .Header .HeaderItems span:not(:first-child),
+.StoreBlock .Header .HeaderItems input:not(:first-child){
+  text-align: center;
+}
+
+.storeContainer {
+  position: relative;
+  float: left;
+}
+
+.storeButt,
+.infoItemButton{
+  display: inline-block;
+  position: relative;
+  min-width: 20%;
+  padding: 0.3vw;
+  transition: all 300ms ease;
+  border:0.4px solid black;
+  font-family: 'Cormorant Unicase', serif;
+  font-weight: 700;
+  margin-right: 10px;
+}
+
+.storeButt:hover{
+  transform: scale(1.15);
+}
+
+.infoContainer{
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.infoContainer .infoItem{
+  display: block;
+  position: relative;
+  width: 60px;
+  margin-bottom: 10px;
+  background-color:transparent;
+}
+
+.infoContainer .infoValid {
+  color: red;
+  font-size: 12px;
+  font-weight: 700;
+  display: block;
+  position: absolute;
+  top: 40%;
+  left: 67%;
+  transform: translateX(-50%);
+}
+
+
+.imgCont{
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border: 0.5px solid black;
+}
+
+.imgCont img{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+}
+
+.wrapper{
+  display: block;
+  display: inline-block;
+  width: 100%;
+}
+
+.StoreBlock .Header .HeaderItems .Arrangement{
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 16.5%;
+  background: url(arr.png) no-repeat;
+  background-size: contain;
+  overflow: auto;
+}
+
+.StoreBlock .Header .HeaderItems{
+  position: relative;
+}
+
+
