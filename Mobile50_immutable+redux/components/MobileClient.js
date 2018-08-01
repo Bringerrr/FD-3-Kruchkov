@@ -1,5 +1,6 @@
-﻿import React from 'react';
+﻿import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import { connect } from "react-redux";
 
 import './MobileClient.css';
 
@@ -37,4 +38,11 @@ class MobileClient extends React.PureComponent {
 
 }
 
-export default MobileClient;
+function mapStateToProps (state) {
+  return{
+    clientRedux: state.clients
+  };
+}
+
+
+export default connect (mapStateToProps)(MobileClient);

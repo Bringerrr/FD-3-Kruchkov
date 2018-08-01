@@ -8,14 +8,13 @@ function setName(state=initState,action) {
     switch (action.type) {
 
         case COMPANY_NAME: {
-            let changed=false;
             
             if(state.name===action.name){
                 console.log("do nothing")
             }
 
             else 
-                console.log("Render : "+action.name)
+                console.log("New state : "+action.name)
                 state.name = action.name
             }
         

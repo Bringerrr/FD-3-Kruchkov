@@ -77,6 +77,10 @@ class MobileCompany extends React.PureComponent {
 
     console.log("MobileCompany render");
 
+    // var clientsCode=this.props.clientRedux.map( client =>
+    //   <MobileClient key={client.id} info={client}  />
+    // );
+
     var clientsCode=this.state.clients.map( client =>
       <MobileClient key={client.id} info={client}  />
     );
@@ -88,6 +92,8 @@ class MobileCompany extends React.PureComponent {
           <br/>
           <input type="button" value="=МТС" onClick={(this.setName1)} />
           <input type="button" value="=Velcom" onClick={this.setName2} />
+          <div className='MobileCompanyName'>Компания &laquo;{this.state.name}&raquo;</div>
+          <br/>
         </div>
 
         <div>
@@ -95,9 +101,10 @@ class MobileCompany extends React.PureComponent {
           <br/>
           <input type="button" value="=МТС" onClick={()=>{this.props.set_name("МТС")}} />
           <input type="button" value="=Velcom" onClick={()=>{this.props.set_name("Velcom")}} />
+          <div className='MobileCompanyName'>Компания &laquo;{this.props.nameRedux}&raquo;</div>
+          <br/>
         </div>
-
-        <div className='MobileCompanyName'>Компания &laquo;{this.state.name}&raquo;</div>
+      
         <div className='MobileCompanyClients'>
           {clientsCode}
         </div>
@@ -113,7 +120,8 @@ class MobileCompany extends React.PureComponent {
 
 function mapStateToProps (state) {
   return{
-    clientRedux: state.clients
+    clientRedux: state.clients,
+    nameRedux: state.name.name
   };
 }
 
