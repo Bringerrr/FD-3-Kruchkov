@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import {voteEvents} from './events';
+
+import { connect } from "react-redux";
 
 import './VotesEdit.css';
 
@@ -110,7 +112,12 @@ class VotesEdit extends React.Component {
 
 
 render() {
+    if(!this.props.active)
+    return(
+        <p>Choose your item</p>
+    )
     var rA = this.state.readOnly
+    
     return(
         <div className="VotesEdit">
           <div>
@@ -153,4 +160,10 @@ render() {
   }
 }
 
-export default VotesEdit;
+function mapStateToProps (state) {
+  return{
+    active: state.client
+  };
+}
+
+export default connect(mapStateToProps)(VotesEdit);

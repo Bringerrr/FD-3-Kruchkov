@@ -5,6 +5,14 @@ import ReactDOM from 'react-dom';
 
 import MobileCompany from './components/MobileCompany';
 
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import combinedReducer from './redux/reducers';
+
+let store=createStore(combinedReducer);
+
+console.log(store.getState())
+
 let companyName='Velcom';
 let clientsArr=[ 
   {id:101, fam:"Иванов", im:"Иван", otch:"Иванович", balance:200}, 
@@ -14,10 +22,12 @@ let clientsArr=[
 ];
 
 ReactDOM.render(
-  <MobileCompany 
-    name={companyName}
-    clients={clientsArr}
-  />
+  <Provider store={store}>
+    <MobileCompany 
+      name={companyName}
+      clients={clientsArr}
+    />
+  </Provider>
   , document.getElementById('container') 
 );
 

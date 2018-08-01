@@ -1,11 +1,13 @@
-﻿import React from 'react';
+﻿import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-
-import {connect} from 'react-redux';
 import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+
 import { set_name } from "../redux/reduxConst";
 
+
 import MobileClient from './MobileClient';
+
 import './MobileCompany.css';
 
 class MobileCompany extends React.PureComponent {
@@ -15,9 +17,7 @@ class MobileCompany extends React.PureComponent {
     clients:PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
-        fam: PropTypes.string.isRequired,
-        im: PropTypes.string.isRequired,
-        otch: PropTypes.string.isRequired,
+        fio: PropTypes.string.isRequired,
         balance: PropTypes.number.isRequired,
       })
     ),
@@ -36,6 +36,19 @@ class MobileCompany extends React.PureComponent {
     this.setState({name:'Velcom'});
   };
   
+  // setBalance = (clientId,newBalance) => {
+  //   let newClients=[...this.state.clients]; // копия самого массива клиентов
+  //   newClients.forEach( (c,i) => {
+  //     // if ( c.id==clientId ) {
+  //     if ( c.id==clientId && c.balance!=newBalance ) {
+  //       let newClient={...c}; // копия хэша изменившегося клиента
+  //       newClient.balance=newBalance;
+  //       newClients[i]=newClient;
+  //     }
+  //   } );
+  //   this.setState({clients:newClients});
+  // };
+
   setBalance = (clientId,newBalance) => {
     let changed=false;
     let newClients=[...this.state.clients]; // копия самого массива клиентов
@@ -50,6 +63,7 @@ class MobileCompany extends React.PureComponent {
     if ( changed )
       this.setState({clients:newClients});
   };
+
   
   setBalance1 = () => {
     this.setBalance(105,230);
@@ -63,21 +77,27 @@ class MobileCompany extends React.PureComponent {
 
     console.log("MobileCompany render");
 
-    var clientsCode=this.props.clientsRedux.map( client => {
-    // var clientsCode=this.state.clients.map( client => {
-        let FIO={fam:client.fam,im:client.im,otch:client.otch};
-        return <MobileClient key={client.id} id={client.id} FIO={FIO} balance={client.balance} />;
-      }
+    var clientsCode=this.state.clients.map( client =>
+      <MobileClient key={client.id} info={client}  />
     );
 
     return (
       <div className='MobileCompany'>
-        <input type="button" value="=МТС" onClick={()=>{this.props.set_name("МТС")}} />
-        <input type="button" value="=Velcom" onClick={()=>{this.props.set_name("Velcom")}} />
-        <input type="button" value="=МТС" onClick={this.setName1} />
-        <input type="button" value="=Velcom" onClick={this.setName2} />
+        <div>
+          <span>Дефолтные</span>
+          <br/>
+          <input type="button" value="=МТС" onClick={(this.setName1)} />
+          <input type="button" value="=Velcom" onClick={this.setName2} />
+        </div>
 
-        <div className='MobileCompanyName'>Компания &laquo;{this.props.compName.name}&raquo;</div>
+        <div>
+          <span>Redux</span>
+          <br/>
+          <input type="button" value="=МТС" onClick={()=>{this.props.set_name("МТС")}} />
+          <input type="button" value="=Velcom" onClick={()=>{this.props.set_name("Velcom")}} />
+        </div>
+
+        <div className='MobileCompanyName'>Компания &laquo;{this.state.name}&raquo;</div>
         <div className='MobileCompanyClients'>
           {clientsCode}
         </div>
@@ -93,12 +113,12 @@ class MobileCompany extends React.PureComponent {
 
 function mapStateToProps (state) {
   return{
-    clientInfo: state.client
+    clientRedux: state.clients
   };
 }
 
 function matchDispatchToProps(dispatch){
-  return bindActionCreators({select: select}, dispatch)
+  return bindActionCreators({set_name: set_name}, dispatch)
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(MobileClient);
+export default connect(mapStateToProps, matchDispatchToProps)(MobileCompany);

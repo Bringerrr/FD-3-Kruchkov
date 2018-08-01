@@ -1,7 +1,12 @@
-﻿import React from 'react';
+﻿import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import {voteEvents} from './events';
+
+import { connect } from "react-redux";
+
+import { bindActionCreators } from "redux";
+import { item_select } from '../reducers/redConst';
 
 import './VotesAnswer.css';
 
@@ -20,19 +25,21 @@ class VotesAnswer extends React.Component {
   answerClicked = (EO) => {
     //this.props.cbSelected(this.props.code);
     EO.currentTarget.style.backgroundColor = "red"
-    voteEvents.emit('EAnswerClicked',this.props);
+    // voteEvents.emit('EAnswerClicked',this.props);
   }
 
   freeAnswerTextChanged = (EO) => { 
     console.log('VotesAnswer: текст свободного ответа изменён - ' + EO.target.value); 
     //this.props.cbFreeAnswerTextChanged(EO.target.value);
-    voteEvents.emit('EFreeAnswerTextChanged', EO.target.value);
+    // voteEvents.emit('EFreeAnswerTextChanged', EO.target.value);
   }
+
+
 
   render() {
     if ( this.props.workMode==1 ) {
       return (
-          <div className='VotesBlockAnswer' onClick={this.answerClicked}>
+          <div className='VotesBlockAnswer' onClick={()=>this.props.item_select(this.props)}>
             {/* <input type='radio' value={this.props.code} name='voteanswer'
               checked={this.props.selectedAnswerCode==this.props.code}
               
@@ -59,9 +66,12 @@ class VotesAnswer extends React.Component {
         </div>
       );
     }
-
   }
-
 }
 
-export default VotesAnswer;
+
+function matchDispatchToProps(dispatch){
+  return bindActionCreators({item_select: item_select}, dispatch)
+}
+
+export default connect(matchDispatchToProps)(VotesAnswer);

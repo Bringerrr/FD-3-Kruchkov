@@ -9,6 +9,10 @@ import Header from './Header';
 import VotesEdit from './VotesEdit';
 
 import {voteEvents} from './events';
+import { connect } from "react-redux";
+
+import { bindActionCreators } from "redux";
+import { item_select } from '../reducers/redConst';
 
 
 class VotesBlock extends React.Component {
@@ -40,24 +44,24 @@ class VotesBlock extends React.Component {
   }
 
   componentDidMount = () => {
-    voteEvents.addListener('EAnswerClicked',this.answerSelected);
-    voteEvents.addListener('EFreeAnswerTextChanged',this.freeAnswerTextChanged);
+    // voteEvents.addListener('EAnswerClicked',this.answerSelected);
+    // voteEvents.addListener('EFreeAnswerTextChanged',this.freeAnswerTextChanged);
     // voteEvents.addListener('ButtAddClicked',this.answerSelected);
     // voteEvents.addListener('ButtDelClicked',this.answerSelected);
   };
 
   componentWillUnmount = () => {
-    voteEvents.removeListener('EAnswerClicked',this.answerSelected);
-    voteEvents.removeListener('EFreeAnswerTextChanged',this.freeAnswerTextChanged);
+    // voteEvents.removeListener('EAnswerClicked',this.answerSelected);
+    // voteEvents.removeListener('EFreeAnswerTextChanged',this.freeAnswerTextChanged);
     // voteEvents.removeListener('ButtAddClicked',this.answerSelected);
     // voteEvents.removeListener('ButtDelClicked',this.answerSelected);
   };
 
-  answerSelected = (hash) => {
-    console.log("выбран "+hash.code);
-    this.setState( {selectedAnswerCode:hash.code} );
-    this.setState( {selectedAnswerRaw:hash} );
-  }
+  // answerSelected = (hash) => {
+  //   console.log("выбран "+hash.code);
+  //   this.setState( {selectedAnswerCode:hash.code} );
+  //   this.setState( {selectedAnswerRaw:hash} );
+  // }
 
   vote = () => {
     console.log('голосование завершено, выбран ответ с кодом '+this.state.selectedAnswerCode);
@@ -100,8 +104,8 @@ class VotesBlock extends React.Component {
 
   render() {
     console.log(this.props)
-    var answersCode=this.props.answers.map( v =>
-      <VotesAnswer key={v.code}
+    var answersCode=this.props.itemsRedux.map( v =>
+      <VotesAnswer onClick={this.click} key={v.code}
         text={v.text} count={v.count} code={v.code} url={v.url} price={v.price}
         freeanswer={v.freeanswer} freeanswertext={this.state.freeanswertext}
         selectedAnswerCode={this.state.selectedAnswerCode}
@@ -143,34 +147,23 @@ class VotesBlock extends React.Component {
                       // <input value="Удалить" type="button" onClick={this.del}></input>
                   :null
                 }
-
         </div>
         {
           ((this.state.workMode==1)&&this.state.selectedAnswerCode) &&
           <input type='button' value='проголосовать' onClick={this.vote} />
         }
-
-         {(this.state.selectedAnswerCode!=null)
-            ?<VotesEdit 
-            item = {this.props.header[0]} 
-            workMode = {0}
-            value = {
-              {
-                text:aAR.text,count:aAR.count,
-                code:aAR.code,url:aAR.url, price:aAR.price,
-              }
-            }
+         <VotesEdit 
         />
-            :null
-        }
-
       </div>
-      
     )
     ;
-
   }
-
 }
 
-export default VotesBlock;
+function mapStateToProps (state) {
+  return{
+    itemsRedux: state.itemsRedux
+  };
+}
+
+export default connect(mapStateToProps)(VotesBlock);
