@@ -1,10 +1,10 @@
 ﻿import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from "redux";
+// import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-
 import { set_name } from "../redux/reduxConst";
 
+import deepEqual from 'deep-equal';
 
 import MobileClient from './MobileClient';
 
@@ -35,6 +35,14 @@ class MobileCompany extends React.PureComponent {
   setName2 = () => {
     this.setState({name:'Velcom'});
   };
+
+  nameChange1 = () => {
+    this.props.dispatch( set_name("МТС") );
+  }
+
+  nameChange2 = () => {
+    this.props.dispatch( set_name("Velcom") );
+  }
   
   // setBalance = (clientId,newBalance) => {
   //   let newClients=[...this.state.clients]; // копия самого массива клиентов
@@ -62,6 +70,13 @@ class MobileCompany extends React.PureComponent {
     } );
     if ( changed )
       this.setState({clients:newClients});
+  };
+
+  componentWillReceiveProps = (newProps) => {
+    console.log("MobileCOMPANY componentWillReceiveProps");
+    console.log(newProps)
+    console.log(this.props)
+    // this.setState({info:newProps.info});
   };
 
   
@@ -99,8 +114,8 @@ class MobileCompany extends React.PureComponent {
         <div>
           <span>Redux</span>
           <br/>
-          <input type="button" value="=МТС" onClick={()=>{this.props.set_name("МТС")}} />
-          <input type="button" value="=Velcom" onClick={()=>{this.props.set_name("Velcom")}} />
+          <input type="button" value="=МТС" onClick={this.nameChange1} />
+          <input type="button" value="=Velcom" onClick={this.nameChange2} />
           <div className='MobileCompanyName'>Компания &laquo;{this.props.nameRedux}&raquo;</div>
           <br/>
         </div>
@@ -118,15 +133,15 @@ class MobileCompany extends React.PureComponent {
 
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return{
     clientRedux: state.clients,
     nameRedux: state.name.name
   };
 }
 
-function matchDispatchToProps(dispatch){
-  return bindActionCreators({set_name: set_name}, dispatch)
-}
+// function matchDispatchToProps(dispatch){
+//   return bindActionCreators({set_name: set_name}, dispatch)
+// }
 
-export default connect(mapStateToProps, matchDispatchToProps)(MobileCompany);
+export default connect(mapStateToProps)(MobileCompany);

@@ -11,7 +11,7 @@ import MobileCompany from './components/MobileCompany';
 import combinedReducer from './redux/reducers';
 
 let store=createStore(combinedReducer);
-console.log(store.getState())
+// console.log(store.getState())
 
 let companyName='Velcom';
 let clientsArr=[

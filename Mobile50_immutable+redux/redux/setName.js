@@ -15,7 +15,7 @@ function setName(state=initState,action) {
 
             else 
                 console.log("New state : "+action.name)
-                state.name = action.name
+                state = {...state, name:action.name}
             }
         
         default:
