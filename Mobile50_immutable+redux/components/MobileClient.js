@@ -1,6 +1,9 @@
 ﻿import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
+import { client_select } from "../redux/reduxConst";
+
+import { bindActionCreators } from "redux";
 
 import './MobileClient.css';
 
@@ -23,14 +26,19 @@ class MobileClient extends React.PureComponent {
     // console.log(this.props.info)
     this.setState({info:newProps.info});
   };
-
+  
+  clientSelect = (elem) => {
+    console.log(111)
+    this.props.dispatch( client_select(elem) );
+  }
 
   render() {
 
     console.log("MobileClient id="+this.state.info.id+" render");
     
     return (
-      <div className='MobileClient'>
+      <div className='MobileClient' onClick={ () => {this.clientSelect(this.state.info)} }>
+      {/* <div className='MobileClient' onClick={ () =>{this.props.client_select(this.state.info.clients)} }> */}
         <span className='MobileClientBalance'>{this.state.info.balance}</span>
         <span className='MobileClientFIO'>{this.state.info.fio}</span>
       </div>
@@ -46,5 +54,12 @@ function mapStateToProps (state) {
   };
 }
 
+function matchDispatchToProps(dispatch){
+  return bindActionCreators({client_select: client_select}, dispatch)
+}
 
-export default connect (mapStateToProps)(MobileClient);
+
+export default connect (
+  mapStateToProps,
+  // matchDispatchToProps
+)(MobileClient);

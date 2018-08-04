@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { set_name } from "../redux/reduxConst";
 
 import deepEqual from 'deep-equal';
-
 import MobileClient from './MobileClient';
 
 import './MobileCompany.css';
