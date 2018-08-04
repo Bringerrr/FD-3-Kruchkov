@@ -1,4 +1,20 @@
-abstract class Product {
+interface IWeighing {
+    getWeight():number
+}
+
+interface ICalled {
+    getName():string
+}
+
+interface IListed {
+    getNameList():string[]
+}
+
+interface IScalable {
+    getSumScale():number
+}
+
+abstract class Product implements IWeighing, ICalled  {
 
     name:string;
     weight:number;
@@ -32,7 +48,7 @@ class Tomato extends Product {
     }
 }
 
-class Scales{
+class Scales implements IScalable, IListed{
     products:Array<Product>;
 
     constructor(){
