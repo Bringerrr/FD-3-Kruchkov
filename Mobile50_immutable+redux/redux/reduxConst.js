@@ -2,6 +2,7 @@
 const SET_BALANCE="SET_BALANCE";
 const COMPANY_NAME="COMPANY_NAME";
 
+
 const client_select = function(active){
   return{
     type:CLIENT_SELECT,

@@ -28,7 +28,6 @@ class MobileClient extends React.PureComponent {
   };
   
   clientSelect = (elem) => {
-    console.log(111)
     this.props.dispatch( client_select(elem) );
   }
 

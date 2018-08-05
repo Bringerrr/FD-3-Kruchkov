@@ -1,8 +1,9 @@
 ﻿import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-// import { bindActionCreators } from "redux";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { set_name } from "../redux/reduxConst";
+import { client_select } from "../redux/reduxConst";
 
 import deepEqual from 'deep-equal';
 import MobileClient from './MobileClient';
@@ -42,19 +43,6 @@ class MobileCompany extends React.PureComponent {
   nameChange2 = () => {
     this.props.dispatch( set_name("Velcom") );
   }
-  
-  // setBalance = (clientId,newBalance) => {
-  //   let newClients=[...this.state.clients]; // копия самого массива клиентов
-  //   newClients.forEach( (c,i) => {
-  //     // if ( c.id==clientId ) {
-  //     if ( c.id==clientId && c.balance!=newBalance ) {
-  //       let newClient={...c}; // копия хэша изменившегося клиента
-  //       newClient.balance=newBalance;
-  //       newClients[i]=newClient;
-  //     }
-  //   } );
-  //   this.setState({clients:newClients});
-  // };
 
   setBalance = (clientId,newBalance) => {
     let changed=false;
@@ -72,9 +60,9 @@ class MobileCompany extends React.PureComponent {
   };
 
   componentWillReceiveProps = (newProps) => {
-    console.log("MobileCOMPANY componentWillReceiveProps");
-    console.log(newProps)
-    console.log(this.props)
+    // console.log("MobileCOMPANY componentWillReceiveProps");
+    // console.log(newProps)
+    // console.log(this.props)
     // this.setState({info:newProps.info});
   };
 
@@ -95,7 +83,7 @@ class MobileCompany extends React.PureComponent {
     //   <MobileClient key={client.id} info={client}  />
     // );
 
-    var clientsCode=this.state.clients.map( client =>
+    var clientsCode=this.props.clientRedux.clientsRedux.map( client =>
       <MobileClient key={client.id} info={client}  />
     );
 
@@ -140,7 +128,12 @@ function mapStateToProps(state) {
 }
 
 // function matchDispatchToProps(dispatch){
-//   return bindActionCreators({set_name: set_name}, dispatch)
+//   return bindActionCreators({client_select: client_select}, dispatch)
 // }
 
-export default connect(mapStateToProps)(MobileCompany);
+
+
+export default connect(
+  mapStateToProps,
+  // matchDispatchToProps
+)(MobileCompany);
