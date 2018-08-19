@@ -1,0 +1,43 @@
+﻿div.ScanerClient
+{
+  padding: 2px 0;
+}
+
+span.ScanerClientBalance
+{
+  float: right;
+  width: 30px;
+  font-weight: bold;
+  text-align: right;
+}
+
+span.ScanerClientFIO
+{
+  margin-right: 30px;
+}
+
+.ScanerClientActive{
+  position: relative;
+  float: right;
+  width: 18px;
+  height: 18px;
+}
+
+.ScanerClientActive>.Active{
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  border: 2px solid grey;
+}
+
+.ActiveTrue{
+  background-color: white;
+}
+
+.ActiveFalse{
+  background-color: red;
+}

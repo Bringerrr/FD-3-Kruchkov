@@ -24,4 +24,4 @@ class VotesAnswer extends React.Component {
 
 }
 
-export default VotesAnswer;
+export default VotesAnswer

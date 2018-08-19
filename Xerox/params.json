@@ -1,0 +1,7 @@
+[
+    {"id":1, "name":"copies", "data":["any",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]}, 
+    {"id":2, "name":"scanning", "data":["one side", "both sides"]}, 
+    {"id":3, "name":"color", "data":["red","blue","green"]},
+    {"id":4, "name":"resolution", "data":[150,300,450,600]},
+    {"id":5, "name":"file name", "data":["ludovic"]}
+]

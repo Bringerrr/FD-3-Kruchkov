@@ -13,7 +13,7 @@ const initState={
   }
 
 
-function activeClient(state=initState,action) {
+function clientSelect(state=initState,action) {
     switch (action.type) {
 
     case CLIENT_SELECT: {
@@ -54,4 +54,4 @@ function activeClient(state=initState,action) {
     }
 }
 
-export default activeClient;
+export default clientSelect;
