@@ -1,0 +1,16 @@
+h3{
+    text-align: center;
+}
+
+.UserCitationContainerElem{
+    width: 30%;
+    border: 1px solid #000;
+}
+
+.UserCitationText_Word{
+    cursor: pointer;
+}
+
+.UserCitationText_Word:hover{
+    border-bottom: 1px solid #000;
+}

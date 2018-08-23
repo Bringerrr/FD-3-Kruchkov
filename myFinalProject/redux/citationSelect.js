@@ -1,51 +1,55 @@
-import { CLIENT_SELECT } from './reduxConst';
-import { CLIENT_EDIT } from './reduxConst';
+import { CITATION_SELECT } from './reduxConst';
+import { CITATION_EDIT } from './reduxConst';
+
+
+let content = require("../content.json")
 
 const initState={
 
     // ключ - идентификатор счётчика, значение - число нажатий
-    clientsRedux:[
-        {id:101, fio:"Иванов И.И.", balance:200}, 
-        {id:105, fio:"Сидоров С.С.", balance:250}, 
-        {id:110, fio:"Петров П.П.", balance:180},
-        {id:120, fio:"Григорьев Г.Г.", balance:220},
-      ],
     active:null,
+    content,
     edit:null,
-    maxBalance:999,
   }
 
 
-function clientSelect(state=initState,action) {
+function citationsSelect(state=initState,action) {
     switch (action.type) {
 
-    case CLIENT_SELECT: {
+    case CITATION_SELECT: {
+        console.log("CITATION_SELECT")
         let changed=false;
         let newState = {}
-        let newClients=[...state.clientsRedux]; // копия самого массива клиентов
+        let newClients=[...state.content]; // копия самого массива клиентов
+        
+        
         newClients.forEach( (c,i) => {
             if ( c.id==action.active.id
-                && c.fio==action.active.fio
+                && c.text==action.active.text
                 // && c.balance!=state.maxBalance 
             ) {
                 changed = true
                 let newClient={...c}; // копия хэша изменившегося клиента
                 // newClient.balance=state.maxBalance;
+
+                console.log(newClient)
+                
                 newClients[i]=newClient;
-                state.clientsRedux = newClients
+                state.content = newClients
 
                 newState={...state,
-                    clientsRedux:newClients
+                    content:newClients
                 };
                 newState={...state,
                     active:newClient
                 }
             }
         } );
+
         if ( changed ) return newState
     }
 
-    case CLIENT_EDIT: {
+    case CITATION_EDIT: {
 
         let changed=false;
         let newState = {}
@@ -55,11 +59,11 @@ function clientSelect(state=initState,action) {
             var cont = EO.parentNode
 
             let hash = {}
-            hash.fio = document.getElementById("editFio").value
+            hash.text = document.getElementById("edittext").value
             hash.balance = document.getElementById("editBalance").value
             hash.id = EO.parentNode.id
 
-            let orig = state.clientsRedux
+            let orig = state.content
             state.edit = hash
         
             let elem;
@@ -71,18 +75,18 @@ function clientSelect(state=initState,action) {
             }
 
             orig[elem] = hash
-            let newClients=[...state.clientsRedux]; // копия самого массива клиентов
+            let newClients=[...state.content]; // копия самого массива клиентов
 
-                if ( newClients[elem].id==hash.id  && newClients[elem].fio==hash.fio ) {
+                if ( newClients[elem].id==hash.id  && newClients[elem].text==hash.text ) {
                     changed = true
                     let newClient={...newClients[elem]}; // копия хэша изменившегося клиента
                     newClient.id=hash.id;
-                    newClient.fio=hash.fio;
+                    newClient.text=hash.text;
                     newClient.balance=hash.balance;
-                    state.clientsRedux = newClients
+                    state.content = newClients
 
                     newState={...state,
-                        clientsRedux:newClients
+                        content:newClients
                     };
 
                     console.log(newState)
@@ -98,4 +102,4 @@ function clientSelect(state=initState,action) {
     }
 }
 
-export default clientSelect;
+export default citationsSelect;

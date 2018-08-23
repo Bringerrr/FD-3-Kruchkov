@@ -28,6 +28,7 @@ class MobileClient extends React.PureComponent {
   };
   
   clientSelect = (elem) => {
+    // console.log(this.props)
     this.props.dispatch( client_select(elem) );
   }
 
@@ -36,7 +37,9 @@ class MobileClient extends React.PureComponent {
     console.log("MobileClient id="+this.state.info.id+" render");
     
     return (
-      <div className='MobileClient' onClick={ () => {this.clientSelect(this.state.info)} }>
+      <div className='MobileClient' 
+        onClick={ () => {this.clientSelect(this.state.info)} }
+      >
       {/* <div className='MobileClient' onClick={ () =>{this.props.client_select(this.state.info.clients)} }> */}
         <span className='MobileClientBalance'>{this.state.info.balance}</span>
         <span className='MobileClientFIO'>{this.state.info.fio}</span>

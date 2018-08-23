@@ -1,0 +1,18 @@
+h3{
+    text-align: center;
+}
+
+.UserCitationContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;    
+}
+
+.UserCitationContainer>.UserCitation{
+    width: 30%;
+    border: 1px solid #000;
+}
+
+.UserCitationContainer>.UserCitation>h4{
+    font-weight: bold;
+}

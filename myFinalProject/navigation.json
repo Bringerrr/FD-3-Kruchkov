@@ -1,0 +1,7 @@
+[
+    {"id":1,"data":"Home"}, 
+    {"id":2,"data":"About"}, 
+    {"id":3,"data":"Courses"},
+    {"id":4,"data":"News"},
+    {"id":5,"data":"Contacts"}
+]
