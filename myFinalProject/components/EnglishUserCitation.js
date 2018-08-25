@@ -39,12 +39,8 @@ function mapStateToProps (state) {
     };
   }
   
-  // function matchDispatchToProps(dispatch){
-  //   return bindActionCreators({citation_select: citation_select}, dispatch)
-  // }
-  
   
   export default connect (
-    mapStateToProps,
-    // matchDispatchToProps
+    mapStateToProps
+
   )(EnglishUserCitation);

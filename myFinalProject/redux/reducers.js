@@ -1,7 +1,6 @@
 ﻿import { combineReducers } from 'redux';
 
 import citationSelect from "./citationSelect";
-import setBalance from "./setBalance";
 import citAdd from "./citAdd";
 import dicCreate from "./dicCreate";
 

@@ -33,6 +33,17 @@
     border: 1px solid #000;
 }
 
+.EnglishCitationText_Edit{
+    float: left;
+    padding: 1px;
+    margin-top: 5px;
+    height: 20px;
+}
+
+.purchTrue{
+    float: left;
+}
+
 /* button{
     float: right;
 } */

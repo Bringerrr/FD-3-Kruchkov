@@ -4,6 +4,13 @@
   flex-wrap: wrap;
 }
 
-.CitationTable{
+.CitationTable th{
+  font-size: 12px;
+}
 
+.CitationTable td{
+  padding-right: 15px;
+}
+.CitationTable button{
+  font-size: 12px;
 }

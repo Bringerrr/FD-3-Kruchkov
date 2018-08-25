@@ -13,31 +13,6 @@ class EnglishMainPage extends React.PureComponent {
 
   render() {
 
-    const translate = require('ya-translate')("trnsl.1.1.20180821T152745Z.b203b1adaafdf5b6.21dce1350e91a9fb665fcb98a6d203c7a05f407d")
-
-    let wordStr = ""
-    let wordArr = []
-
-    function tranFun(word){
-     return translate(word, 'ru')
-            .then(text => {
-                wordStr = text.text
-                wordArr.push(text.text)
-                console.log(text.text)
-            });    
-    }
-
-    tranFun("Hello world");
-    console.log(wordStr)
-    console.log(wordArr)
-
-    // async function add2(x) {
-    //     const a = tranFun(x);
-    //     return a
-    // }
-
-    // add2("world");
-
     return(
         <div className="EnglishMainPage">
 

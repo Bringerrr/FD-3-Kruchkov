@@ -14,3 +14,7 @@ h3{
 .UserCitationText_Word:hover{
     border-bottom: 1px solid #000;
 }
+
+.UCT_Text{
+    color:red
+}

@@ -6,7 +6,15 @@ const CITATION_ADD="CITATION_ADD";
 const DIC_ADD="DIC_ADD";
 const DIC_STORE="DIC_STORE";
 const CIT_REFRESH="CIT_REFRESH";
+const CITATION_ARRANGE="CIT_ARRANGE";
 
+
+const cit_arrange =function(elem){
+  return{
+    type:CITATION_ARRANGE,
+    elem:elem
+  }
+}
 
 const cit_refresh =function(elem){
   return{
@@ -44,10 +52,11 @@ const citations_select = function(active){
   }
 }
 
-const citations_edit = function(EO){
+const citation_edit = function(EO,id){
   return{
     type:CITATION_EDIT,
-    EO:EO
+    EO:EO,
+    id:id,
   }
 }
 
@@ -69,11 +78,12 @@ const set_balance = function(citations_id,balance){
 
 export {
   citations_select,CITATION_SELECT,
-  citations_edit,CITATION_EDIT,
+  citation_edit,CITATION_EDIT,
   set_balance,SET_BALANCE,
   set_name,COMPANY_NAME,
   citation_add,CITATION_ADD,
   dic_add,DIC_ADD,
   dic_store,DIC_STORE,
   cit_refresh, CIT_REFRESH,
+  cit_arrange, CITATION_ARRANGE,
 }

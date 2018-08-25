@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { citation_select } from "../redux/reduxConst";
 import { citation_add } from "../redux/reduxConst";
+import { citation_edit } from "../redux/reduxConst";
 
 import { bindActionCreators } from "redux";
 
 import './EnglishCitation.css';
 
 
-class EnglishCitation extends React.PureComponent {
+class EnglishCitation extends React.Component {
 
   static propTypes = {
     info:PropTypes.shape({
@@ -23,10 +24,14 @@ class EnglishCitation extends React.PureComponent {
     info: this.props,
     purchased:false,
     add:null,
+    workMode:1,
+    text:this.props.text,
+    currText:"",
+    currId:null,
   };
 
   componentWillReceiveProps = (newProps) => {
-    console.log("EnglishCitation id="+this.props.id+" componentWillReceiveProps");
+    console.log("EnglishCitation id= "+this.props.id+" componentWillReceiveProps");
   };
 
   componentWillMount = () =>{
@@ -38,13 +43,10 @@ class EnglishCitation extends React.PureComponent {
         break;
       }   
     }
-
-
   }
 
   purchase = () =>{
     this.setState({purchased:true})
-    console.log(this.props.add.idIsAdded)   
   }
 
   compare = () =>{
@@ -83,6 +85,38 @@ class EnglishCitation extends React.PureComponent {
     }
   }
 
+  countGapsMin = (text) =>{
+    let gaps = 0;
+    let newText = ""
+
+    for (let i = 0; i < text.length; i++) {
+      if(text[i]==" "){
+        gaps++
+        if(gaps==3){
+          return text.substr(0,i) + "..."
+          break;
+        }
+      } 
+    }
+  }
+
+  startEdit = (EO) =>{
+    this.setState({workMode:2})
+    this.setState({currText:this.props.text})
+    this.setState({currId:this.props.id})
+  }
+
+  endEdit = (EO) =>{
+    let parent = EO.target.parentNode.parentNode;
+    this.setState( {workMode:1} ) ;
+    this.props.dispatch( citation_edit(this.state.currText,this.state.currId) );
+    this.props.click();
+  } 
+
+  change = (EO)=>{
+    this.setState({currText:EO.target.value})
+  }
+
   render() {
 
     console.log("EnglishCitation id="+this.props.id+" render");
@@ -97,15 +131,25 @@ class EnglishCitation extends React.PureComponent {
         {/* <div className='EnglishCitation' onClick={ () =>{this.props.citation_select(this.state.info.citations)} }> */}
           <span className='EnglishCitationId'>Citation{this.props.id}</span>
           <br/>
-
-          <span className='EnglishCitationText'>
+          {this.state.workMode == 1
+          ?<span id='EnglishCitationText'>
             {this.countGaps(this.props.text)}
           </span>
+          :<input value={this.state.currText} onChange={this.change}></input>
+          }
         </div>
         {(this.state.purchased==false)
             // ?<button onClick={this.purchase}>Добавить</button>
             ?<button className="purchFalse" onClick={ () =>{this.citAdd(this.props)} }>Добавить</button>
-            :<button className="purchTrue">Добавлено</button>
+            :<div>
+              <button className="purchTrue">Добавлено</button>
+              {this.state.workMode == 1
+              ?<div>
+                <button className="EnglishCitationText_Edit" onClick={this.startEdit}>Редактировать</button>
+              </div >
+              :<button className="EnglishCitationText_Edit" onClick={this.endEdit}>Ok</button>
+              }
+            </div>
             }
 
       </div>
@@ -113,6 +157,7 @@ class EnglishCitation extends React.PureComponent {
       :<tr>
         <td>{this.props.id}</td>
         <td>{this.props.title}</td>
+        <td>{this.countGapsMin(this.props.text)}</td>
         <td>{this.props.audio}</td>
         <td>{this.props.img!=""?<span>да</span>:<span>нет</span>}</td>
         <td>{this.props.price}</td>
@@ -122,22 +167,17 @@ class EnglishCitation extends React.PureComponent {
             :<button className="purchTrue">Добавлено</button>
             }</td>
       </tr>
-    );
-
+  );
   }
 
 }
 
 function mapStateToProps (state) {
   return{
-    add: state.name
+    add: state.name,
+    citationRedux: state.citations,
   };
 }
-
-// function matchDispatchToProps(dispatch){
-//   return bindActionCreators({citation_select: citation_select}, dispatch)
-// }
-
 
 export default connect (
   mapStateToProps,

@@ -1,38 +1,30 @@
 import { CITATION_SELECT } from './reduxConst';
 import { CITATION_EDIT } from './reduxConst';
+import { CITATION_ARRANGE } from './reduxConst';
 
 
 let content = require("../content.json")
 
 const initState={
-
-    // ключ - идентификатор счётчика, значение - число нажатий
     active:null,
     content,
     edit:null,
   }
 
-
 function citationsSelect(state=initState,action) {
     switch (action.type) {
 
     case CITATION_SELECT: {
-        console.log("CITATION_SELECT")
         let changed=false;
         let newState = {}
-        let newClients=[...state.content]; // копия самого массива клиентов
-        
+        let newText=[...state.content];
         
         newClients.forEach( (c,i) => {
             if ( c.id==action.active.id
                 && c.text==action.active.text
-                // && c.balance!=state.maxBalance 
             ) {
                 changed = true
-                let newClient={...c}; // копия хэша изменившегося клиента
-                // newClient.balance=state.maxBalance;
-
-                console.log(newClient)
+                let newClient={...c};
                 
                 newClients[i]=newClient;
                 state.content = newClients
@@ -51,50 +43,105 @@ function citationsSelect(state=initState,action) {
 
     case CITATION_EDIT: {
 
+        
         let changed=false;
         let newState = {}
 
-        if(action.EO!==undefined){
-            let EO = action.EO
-            var cont = EO.parentNode
+        let newContCit = [...state.content]
 
-            let hash = {}
-            hash.text = document.getElementById("edittext").value
-            hash.balance = document.getElementById("editBalance").value
-            hash.id = EO.parentNode.id
+        for (let i = 0; i < newContCit.length; i++) {
+            if ( newContCit[i].id==action.id ) {
+                let newCit = newContCit[i]
 
-            let orig = state.content
-            state.edit = hash
-        
-            let elem;
-            for (let i = 0; i < orig.length; i++) {
-                if(orig[i].id==hash.id){
-                    elem = i;
-                    break;
+                if(true){
+                    changed=true;
+                    newCit.text=action.EO;
+                    newContCit[i].text=newCit.text;
+                    newState = state;
+                    newState.content = newContCit;
                 }
             }
-
-            orig[elem] = hash
-            let newClients=[...state.content]; // копия самого массива клиентов
-
-                if ( newClients[elem].id==hash.id  && newClients[elem].text==hash.text ) {
-                    changed = true
-                    let newClient={...newClients[elem]}; // копия хэша изменившегося клиента
-                    newClient.id=hash.id;
-                    newClient.text=hash.text;
-                    newClient.balance=hash.balance;
-                    state.content = newClients
-
-                    newState={...state,
-                        content:newClients
-                    };
-
-                    console.log(newState)
-                    
-                }
         }
 
         if ( changed ) return newState
+    }
+
+    case CITATION_ARRANGE: {
+  
+            let newState = state
+            let newCont = state.content
+
+            if(action.elem=="text"){
+                newCont.sort(function(a, b){
+                    if(a.text < b.text) return -1;
+                    if(a.text > b.text) return 1;
+                    return 0;
+                })
+            }
+
+            if(action.elem=="textrev"){
+                newCont.sort(function(a, b){
+                    if(a.text > b.text) return -1;
+                    if(a.text < b.text) return 1;
+                    return 0;
+                })
+            }
+
+
+            if(action.elem=="price"){
+                newCont.sort(function(a, b){
+                    if(a.price < b.price) return -1;
+                    if(a.price > b.price) return 1;
+                    return 0;
+                })
+            }
+
+            if(action.elem=="pricerev"){
+                newCont.sort(function(a, b){
+                    if(a.price > b.price) return -1;
+                    if(a.price < b.price) return 1;
+                    return 0;
+                })
+            }
+
+            if(action.elem=="id"){
+                newCont.sort(function(a, b){
+                    if(a.id < b.id) return -1;
+                    if(a.id > b.id) return 1;
+                    return 0;
+                })
+            }
+
+            if(action.elem=="idrev"){
+                newCont.sort(function(a, b){
+                    if(a.id > b.id) return -1;
+                    if(a.id < b.id) return 1;
+                    return 0;
+                })
+            }
+
+
+            if(action.elem=="titlerev"){
+                newCont.sort(function(a, b){
+                    if(a.title > b.title) return -1;
+                    if(a.title < b.title) return 1;
+                    return 0;
+                })
+            }
+
+            if(action.elem=="title"){
+                newCont.sort(function(a, b){
+                    if(a.title < b.title) return -1;
+                    if(a.title > b.title) return 1;
+                    return 0;
+                })
+            }
+
+
+            return newState
+
+  
+
     }
       
         default:

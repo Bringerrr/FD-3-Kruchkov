@@ -8,8 +8,6 @@ import './EnglishUserCitationElement.css';
 
 const translate = require('ya-translate')("trnsl.1.1.20180821T152745Z.b203b1adaafdf5b6.21dce1350e91a9fb665fcb98a6d203c7a05f407d")
 
-
-
 class EnglishUserCitationElement extends React.PureComponent {
 
     state = {
@@ -44,7 +42,7 @@ class EnglishUserCitationElement extends React.PureComponent {
     dicStore = (EO) =>{
         this.props.dispatch( dic_store(this.state.wordsSelected) );
         this.dicComplete();
-        EO.target.parentNode.style.backgroundColor=""
+        EO.target.parentNode.parentNode.style.backgroundColor=""
     }
 
     dicComplete = () =>{
@@ -76,7 +74,9 @@ class EnglishUserCitationElement extends React.PureComponent {
 
                 {this.state.workMode ==1
                     ?<button onClick={this.dicAdd}>Режим Добавления</button>
-                    :<button onClick={this.dicStore}>Добавить</button>
+                    :<div><button onClick={this.dicStore}>Добавить</button>
+                        <span className="UCT_Text">нажмите на слово...</span>
+                    </div>
                 }
 
             </div>
@@ -93,6 +93,5 @@ function mapStateToProps (state) {
   
   
   export default connect (
-    mapStateToProps,
-    // matchDispatchToProps
+    mapStateToProps
   )(EnglishUserCitationElement);

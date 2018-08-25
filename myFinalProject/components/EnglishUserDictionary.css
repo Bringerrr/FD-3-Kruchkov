@@ -1,0 +1,21 @@
+*{
+    box-sizing: border-box
+}
+
+.EnglishUserDictionary{
+    position: relative;
+}
+
+.EnglishUserDictionary_TableContainer{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.EnglishUserDictionary_Word{
+    cursor: pointer;
+}
+
+.EnglishUserDictionary_Word:hover{
+    border-bottom: 1px solid black;
+}

@@ -8,53 +8,53 @@ import './PagesLinks.css';
 
 class PagesLinks extends React.Component {
 
-  state = {
-    refresh:0
-  };
+  state={
+    ticked:0,
+}
 
-  citRefresh = () => {
-    this.props.dispatch( cit_refresh() );
-    this.setState({refresh:1})
-    console.log(this.props.new)
-    console.log(this.state.refresh)
+ticked = () =>{
+    this.setState({ticked: this.state.ticked + 1});
+}
+
+componentDidMount = () => {
+    this.interval = setInterval(this.ticked, 100);
+}
+
+componentWillUnmount = ()=> {
+    clearInterval(this.interval);
   }
 
   render() {
 
-    // function func(){
-    //   console.log(this.citRefresh)
-      
-    // }
-
-    // if(this.state.refresh==0){
-    //   setInterval(func,1000)
-    // }
+    // console.log("Navigation Render")
 
     return (
       <div>
         <NavLink to="/" exact className="PageLink" activeClassName="ActivePageLink">Главная</NavLink>
         <NavLink to="/citations" className="PageLink" activeClassName="ActivePageLink">Цитаты</NavLink>
-        <NavLink to="/usercitations" className="PageLink" activeClassName="ActivePageLink">
-          Ваши цитаты<div className="newElem" onClick={this.citRefresh}>{this.props.new.new}</div>
+        <div className="wrapper">
+          <NavLink to="/usercitations" className="PageLink" activeClassName="ActivePageLink">
+          Ваши цитаты<div className="newElem citPos" onClick={this.citRefresh}>{this.props.cit.new}</div>
         </NavLink>
-        <NavLink to="/userdic" className="PageLink" activeClassName="ActivePageLink">Словарь</NavLink>
+        </div>
+        <div className="wrapper">
+        <NavLink to="/userdic" className="PageLink" activeClassName="ActivePageLink">
+          Словарь<div className="newElem dicPos" onClick={this.citRefresh}>{this.props.dic.new}</div>
+        </NavLink>
+        </div>
       </div>
     );
-    
   }
-
 }
 
 function mapStateToProps(state) {
   return{
-    new: state.name,
+    cit: state.name,
+    dic: state.dic,
   };
 }
 
 export default connect(
   mapStateToProps,
-  // matchDispatchToProps
 )(PagesLinks);
-    
-// export default PagesLinks;
     

@@ -4,6 +4,7 @@ import { DIC_STORE } from './reduxConst';
 const initState={
     text:null,
     elem:null,
+    new:0,
     store:[],
 }
 
@@ -23,13 +24,14 @@ function dicAdd(state=initState,action) {
             let newState = state;
             action.arr.forEach( (e,i,arr) => {
 
-                if(newState.store.indexOf(e)!=-1){
-                    console.log("Не пойдет")
+                if(newState.store.indexOf(e.toLowerCase())!=-1){
+                    alert("Слово "+e+" уже есть в Вашем словаре")
                 }
 
-                else 
-                newState.store.push(e.toLowerCase())
-
+                else {
+                    newState.store.push(e.toLowerCase())
+                    newState.new+=1;
+                }
             });
 
             return newState
