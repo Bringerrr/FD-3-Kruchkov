@@ -1,0 +1,49 @@
+.Container{
+    width: 30%;
+    float: left;
+    margin-bottom: 20px;
+}
+
+.TrackStorage{
+    max-height: 50px;
+    min-height: 50px;
+    border: 1px solid black;
+    overflow: auto;
+}
+
+.purchFalse{
+    display: block;
+    width: 72px;
+    height: 20px;
+    background-color: grey;
+    border-radius: 4px;
+    padding: 1px;
+    margin-top: 5px;
+    border: 1px solid #000;
+  }
+
+.purchTrue{
+    display: block;
+    width: 72px;
+    height: 20px;
+    background-color: green;
+    border-radius: 4px;
+    padding: 1px;
+    margin-top: 5px;
+    border: 1px solid #000;
+}
+
+.TrackStorageText_Edit{
+    float: left;
+    padding: 1px;
+    margin-top: 5px;
+    height: 20px;
+}
+
+.purchTrue{
+    float: left;
+}
+
+/* button{
+    float: right;
+} */

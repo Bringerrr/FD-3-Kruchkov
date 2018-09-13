@@ -4,6 +4,10 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { citation_select } from "../redux/reduxConst";
 import { cit_arrange } from "../redux/reduxConst";
+import { get_content } from "../redux/reduxConst";
+import _ from 'lodash';
+
+import { fire, connectRef } from '../base'
 
 import EnglishCitation from './EnglishCitation';
 // import EnglishCitation from './EnglishCitation';
@@ -13,6 +17,7 @@ import './EnglishCitationContainer.css';
 const translate = require('ya-translate')("trnsl.1.1.20180821T152745Z.b203b1adaafdf5b6.21dce1350e91a9fb665fcb98a6d203c7a05f407d")
 
 class EnglishCitationContainer extends React.Component {
+
 
   static propTypes = {
     name: PropTypes.string.isRequired,
@@ -33,16 +38,24 @@ class EnglishCitationContainer extends React.Component {
     arrangeMode:"id",
   };
 
+  componentWillMount(){
+    this.props.get_content(connectRef)
+  }
 
   componentWillReceiveProps = (newProps) => {
     console.log("Props Prileteli")
   };
 
+
+  getContent = (ref) => {
+    this.props.dispatch( get_content(ref) );
+}
+
   refresh = () =>{
     this.setState({refresh:1})
   }
 
-  click =() =>{
+  click = () =>{
     this.setState({refresh:1})
   }
 
@@ -60,13 +73,9 @@ class EnglishCitationContainer extends React.Component {
 
   }
 
-    
-  render() {
-
-    console.log("EnglishCitationContainer render");
-
-    var citationCode=this.props.citationRedux.content.map( citation =>
-      <EnglishCitation 
+  renderCitations(){
+    return _.map(this.props.citationRedux.content, (citation) => {
+      return <EnglishCitation 
       key={citation.id} 
       pos={this.state.blockPos} 
       id={citation.id} 
@@ -77,12 +86,35 @@ class EnglishCitationContainer extends React.Component {
       audio={citation.audio} 
       click={this.click}
       />
-    );
+    });
+  }
+    
+  render() {
 
+    console.log("EnglishCitationContainer render");
+
+    var citationCode=_.map(this.props.citationRedux.fireData, (citation) => {
+      return <EnglishCitation 
+      key={citation.id} 
+      pos={this.state.blockPos} 
+      id={citation.id} 
+      price={citation.price}  
+      title={citation.title}
+      text={citation.text} 
+      img={citation.img} 
+      audio={citation.audio} 
+      click={this.click}
+      />
+    })
+
+    console.log(this.renderCitations())
+
+    console.log(this.props.citationRedux.fireData==null)
+ 
     return (
       <div className='EnglishCitationContainer'>
-        <button onClick={ () => {  this.setState({blockPos:"block"}) } }>Флексы</button>
-        <button onClick={ () => {  this.setState({blockPos:"table"}) } }>Таблицы</button>
+        <button onClick={ () => { this.setState({blockPos:"block"}) } }>Флексы</button>
+        <button onClick={ () => { this.setState({blockPos:"table"}) } }>Таблицы</button>
 
         <br/>
 
@@ -92,7 +124,8 @@ class EnglishCitationContainer extends React.Component {
               <button onClick={ () => {  this.citationArrange("text") } }>Text</button>
               <button onClick={ () => {  this.citationArrange("price") } }>Price</button>
               <div className='CitationFlex'>
-            {citationCode}
+            {/* {citationCode} */}
+            {this.renderCitations()}
           </div>
           </div>
 
@@ -106,7 +139,8 @@ class EnglishCitationContainer extends React.Component {
                 <th>Цена<button onClick={ () => {  this.citationArrange("price") } }>Price</button></th>
                 <th>Покупка</th>
               </tr>
-              {citationCode}
+            {/* {citationCode} */}
+            {this.renderCitations}
           </tbody>
         }
       </div>
@@ -118,10 +152,11 @@ class EnglishCitationContainer extends React.Component {
 function mapStateToProps(state) {
   return{
     citationRedux: state.citations,
+    citationFire: state.fireData,
   };
 }
 
 
 export default connect(
-  mapStateToProps,
+  mapStateToProps, {get_content}
 )(EnglishCitationContainer);

@@ -22,7 +22,7 @@ class EnglishUserCitation extends React.PureComponent {
         return(
             <div>
                 <h3>Ваши цитаты</h3>
-
+                
                 <div className="UserCitationContainer">
                     {userCitCode}
                 </div>

@@ -1,0 +1,16 @@
+﻿.TrackFlex{
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.TrackTable th{
+  font-size: 12px;
+}
+
+.TrackTable td{
+  padding-right: 15px;
+}
+.TrackTable button{
+  font-size: 12px;
+}

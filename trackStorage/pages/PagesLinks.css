@@ -1,0 +1,32 @@
+.PageLink {
+    color: black;
+    margin-right: 20px;
+}
+
+.ActivePageLink {
+    font-weight: bold;
+}
+
+
+.newElem{
+    position: relative;
+    font-size: 12px;
+    color:black;
+    text-align: center;
+    background-color: red;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    float: right;
+}
+.wrapper{
+    display: inline-block;
+}
+
+.citPos{
+    left: -20px; 
+}
+
+.dicPos{
+    left: -20px; 
+}

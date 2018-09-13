@@ -1,0 +1,14 @@
+[
+    {"id":1,"title":"The Kingstone Trio","singer":"Tom Dooley","ganre":"Folk","year":"1958"},
+    {"id":2,"title":"Who Wants to Live Forever","singer":"Queen","ganre":"Rock","year":"1986"},
+    {"id":3,"title":"We Are the Champions","singer":"Queen","ganre":"Rock","year":"1977"},
+    {"id":4,"title":"I Want It All","singer":"Queen","ganre":"Rock","year":"1989"},
+    {"id":5,"title":"Russians","singer":"Sting","ganre":"Pop","year":"1985"},
+    {"id":6,"title":"Englishman in New York","singer":"Sting","ganre":"Pop","year":"1987"},
+    {"id":7,"title":"The Kingstone Trio","singer":"Tom Dooley","ganre":"Folk","year":"1958"},
+    {"id":8,"title":"Who Wants to Live Forever","singer":"Queen","ganre":"Rock","year":"1986"},
+    {"id":9,"title":"We Are the Champions","singer":"Queen","ganre":"Rock","year":"1977"},
+    {"id":10,"title":"I Want It All","singer":"Queen","ganre":"Rock","year":"1989"},
+    {"id":11,"title":"Russians","singer":"Sting","ganre":"Pop","year":"1985"},
+    {"id":12,"title":"Englishman in New York","singer":"Sting","ganre":"Pop","year":"1987"}
+]

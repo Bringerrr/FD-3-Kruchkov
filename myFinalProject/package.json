@@ -36,14 +36,20 @@
   },
   "dependencies": {
     "es6-promise": "^4.1.1",
+    "firebase": "^5.4.2",
     "isomorphic-fetch": "^2.2.1",
+    "lodash": "^4.17.11",
     "prop-types": "^15.6.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "re-base": "^4.0.0",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
     "react-redux": "^5.0.7",
+    "react-redux-firebase": "^2.1.8",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.2.2",
+    "reactstrap": "^6.4.0",
     "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
     "translate": "^1.0.2",
     "ya-translate": "^1.0.0"
   }

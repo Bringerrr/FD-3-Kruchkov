@@ -7,7 +7,35 @@ const DIC_ADD="DIC_ADD";
 const DIC_STORE="DIC_STORE";
 const CIT_REFRESH="CIT_REFRESH";
 const CITATION_ARRANGE="CIT_ARRANGE";
+const USER_SET_INFO="USER_SET_INFO";
+const SIGNED_IN="SIGN_IN"
+const GET_CONTENT="GET_CONTENT"
 
+const get_content = function (ref) {
+  return dispatch => {
+    ref.on('value', snapshot => {
+      dispatch({
+        type: GET_CONTENT,
+        payload: snapshot.val()
+      })
+    })
+  }
+}
+
+
+const log_user = function(email){
+  return{
+    type: SIGNED_IN,
+    email: email
+  }
+}
+
+const user_set_info =function(elem){
+  return{
+    type:USER_SET_INFO,
+    elem:elem
+  }
+}
 
 const cit_arrange =function(elem){
   return{
@@ -30,18 +58,20 @@ const dic_store = function(arr){
   }
 }
 
-const dic_add = function(elem,text){
+const dic_add = function(elem,text,user){
   return{
     type:DIC_ADD,
     elem:elem,
     text:text,
+    user:user,
   }
 }
 
-const citation_add = function(add){
+const citation_add = function(add,user){
   return{
     type:CITATION_ADD,
     add:add,
+    user:user,
   }
 }
 
@@ -86,4 +116,7 @@ export {
   dic_store,DIC_STORE,
   cit_refresh, CIT_REFRESH,
   cit_arrange, CITATION_ARRANGE,
+  user_set_info, USER_SET_INFO,
+  get_content, GET_CONTENT,
+  log_user ,SIGNED_IN,
 }

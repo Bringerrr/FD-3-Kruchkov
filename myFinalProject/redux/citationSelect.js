@@ -2,13 +2,21 @@ import { CITATION_SELECT } from './reduxConst';
 import { CITATION_EDIT } from './reduxConst';
 import { CITATION_ARRANGE } from './reduxConst';
 
+import { GET_CONTENT } from './reduxConst';
 
 let content = require("../content.json")
 
+const config = {
+    userProfile: 'users', 
+    // saves user profiles to '/users' on Firebase
+    // here is where you place other config options
+  }
+  
 const initState={
     active:null,
     content,
     edit:null,
+    fireData:null,
   }
 
 function citationsSelect(state=initState,action) {
@@ -18,6 +26,7 @@ function citationsSelect(state=initState,action) {
         let changed=false;
         let newState = {}
         let newText=[...state.content];
+        console.log(action)
         
         newClients.forEach( (c,i) => {
             if ( c.id==action.active.id
@@ -41,8 +50,13 @@ function citationsSelect(state=initState,action) {
         if ( changed ) return newState
     }
 
-    case CITATION_EDIT: {
+    case GET_CONTENT: {
+        let newState = state;
+        newState.fireData = action.payload;
+        return newState;
+    }
 
+    case CITATION_EDIT: {
         
         let changed=false;
         let newState = {}
@@ -137,10 +151,7 @@ function citationsSelect(state=initState,action) {
                 })
             }
 
-
             return newState
-
-  
 
     }
       
