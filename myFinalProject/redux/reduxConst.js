@@ -8,14 +8,16 @@ const DIC_STORE="DIC_STORE";
 const CIT_REFRESH="CIT_REFRESH";
 const CITATION_ARRANGE="CIT_ARRANGE";
 const USER_SET_INFO="USER_SET_INFO";
-const SIGNED_IN="SIGN_IN"
-const GET_CONTENT="GET_CONTENT"
+const SIGNED_IN="SIGN_IN";
+const FETCH_POSTS = 'fetch_posts';
 
-const get_content = function (ref) {
+import {database} from '../base'
+
+const getPosts = function() {
   return dispatch => {
-    ref.on('value', snapshot => {
+    database.on('value', snapshot => {
       dispatch({
-        type: GET_CONTENT,
+        type: FETCH_POSTS,
         payload: snapshot.val()
       })
     })
@@ -117,6 +119,6 @@ export {
   cit_refresh, CIT_REFRESH,
   cit_arrange, CITATION_ARRANGE,
   user_set_info, USER_SET_INFO,
-  get_content, GET_CONTENT,
+  getPosts, FETCH_POSTS,
   log_user ,SIGNED_IN,
 }

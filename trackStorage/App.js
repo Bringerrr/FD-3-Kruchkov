@@ -11,24 +11,16 @@ import combinedReducer from './redux/reducers';
 
 import { BrowserRouter } from 'react-router-dom';
 
-import PagesRouter from './pages/PagesRouter';
-import PagesLinks from './pages/PagesLinks';
 
 let store=createStore(
   combinedReducer,
 );
 
-
-console.log(store.getState())
-
 ReactDOM.render(
   <Provider store = {store}>
-   <BrowserRouter>
       <div className="MainContainer">
-        <PagesLinks />
-        <PagesRouter />
+        <TrackStorageContainer/>
       </div>
-    </BrowserRouter>
   </Provider>
   , document.getElementById('container') 
 );

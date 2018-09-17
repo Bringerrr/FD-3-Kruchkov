@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { citation_select } from "../redux/reduxConst";
 import { cit_arrange } from "../redux/reduxConst";
-import { get_content } from "../redux/reduxConst";
+import { get_content, getPosts } from "../redux/reduxConst";
 import _ from 'lodash';
 
 import { fire, connectRef } from '../base'
@@ -17,7 +17,6 @@ import './EnglishCitationContainer.css';
 const translate = require('ya-translate')("trnsl.1.1.20180821T152745Z.b203b1adaafdf5b6.21dce1350e91a9fb665fcb98a6d203c7a05f407d")
 
 class EnglishCitationContainer extends React.Component {
-
 
   static propTypes = {
     name: PropTypes.string.isRequired,
@@ -38,8 +37,8 @@ class EnglishCitationContainer extends React.Component {
     arrangeMode:"id",
   };
 
-  componentWillMount(){
-    this.props.get_content(connectRef)
+  componentWillMount() {
+    this.props.getPosts();
   }
 
   componentWillReceiveProps = (newProps) => {
@@ -110,6 +109,8 @@ class EnglishCitationContainer extends React.Component {
     console.log(this.renderCitations())
 
     console.log(this.props.citationRedux.fireData==null)
+
+    console.log(this.props.cont)
  
     return (
       <div className='EnglishCitationContainer'>
@@ -158,5 +159,5 @@ function mapStateToProps(state) {
 
 
 export default connect(
-  mapStateToProps, {get_content}
+  mapStateToProps, { getPosts }
 )(EnglishCitationContainer);

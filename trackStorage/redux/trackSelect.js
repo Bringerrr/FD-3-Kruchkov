@@ -2,154 +2,106 @@ import { TRACK_SELECT } from './reduxConst';
 import { TRACK_EDIT } from './reduxConst';
 import { TRACK_ARRANGE } from './reduxConst';
 import { TRACK_FILTER } from './reduxConst';
-
+import { TRACK_GROUP } from './reduxConst';
+import { GO_TO_PAGE } from './reduxConst';
 
 let content = require("../content.json")
-let originalCont = content;
 
 const initState={
-    active:null,
     content,
-    originalCont,
-    edit:null,
-    filtSinger:null,
-    filtYear:null,
-    filtGanre:null, 
-    filtContent:null,
+    filtContent:content,
+    currContent:content,
+    tracksPerPage:15,
+    currentPage: 1,
+    filt:{},
   }
 
 function tracksSelect(state=initState,action) {
     switch (action.type) {
 
-    case TRACK_SELECT: {
-        let changed=false;
-        let newState = {}
-        let newText=[...state.content];
-        
-        newClients.forEach( (c,i) => {
-            if ( c.id==action.active.id
-                && c.text==action.active.text
-            ) {
-                changed = true
-                let newClient={...c};
-                
-                newClients[i]=newClient;
-                state.content = newClients
+    case GO_TO_PAGE: {
+        let newState = state
+        newState.currentPage = action.curPage
 
-                newState={...state,
-                    content:newClients
-                };
-                newState={...state,
-                    active:newClient
-                }
-            }
-        } );
-
-        if ( changed ) return newState
+        return newState
     }
 
-    case TRACK_EDIT: {
+    case TRACK_GROUP: {
+        let newState = state
 
-        
-        let changed=false;
-        let newState = {}
+        newState.tracksPerPage = action.perPage
+        newState.currentPage = action.curPage
 
-        let newContCit = [...state.content]
+        let indexOfLastTrack = newState.currentPage * newState.tracksPerPage;
+        let indexOfFirstTrack = indexOfLastTrack - newState.tracksPerPage;
+        let currentTracks = newState.filtContent.slice(indexOfFirstTrack, indexOfLastTrack);
+        newState.content = currentTracks
 
-        for (let i = 0; i < newContCit.length; i++) {
-            if ( newContCit[i].id==action.id ) {
-                let newCit = newContCit[i]
-
-                if(true){
-                    changed=true;
-                    newCit.text=action.EO;
-                    newContCit[i].text=newCit.text;
-                    newState = state;
-                    newState.content = newContCit;
-                }
-            }
-        }
-
-        if ( changed ) return newState
+        return newState;
     }
 
     case TRACK_FILTER: {
-        console.log(action.name);
-        console.log(action.filt);
         let changed = false
 
         let newState = state
         let newStateContent = newState.content;
+        let newCurrContent = newState.currContent;
         let newStateFiltContent = newState.filtContent;
         let newCont = [];
-        let newFiltSinger="";
-        let newFiltYear="";
-        let newFiltGanre="";
 
-        if(action.name=="ganre"){
-            newFiltGanre = action.filt;
-            newState.filtGanre = newFiltGanre;
+        let newFilt = newState.filt
+
+        newFilt[action.name] = action.filt
+        newState.filt = newFilt
+
+          for ( var key in newFilt){
+              if(newFilt[key]=="all"){
+                delete newFilt[key]
+              }
           }
 
-          if(action.name=="year"){
-            newFiltYear = action.filt;
-            newState.filtYear = newFiltYear;
-            // for (let i = 0; i < newStateContent.length; i++) {
-            //   if(action.filt.indexOf(newStateContent[i].year) > -1){
-            //     console.log(newStateContent[i])
-            //     newCont.push(newStateContent[i])
-            //   }
-            //   else {
-            //     console.log("failed")
-            //     continue;
-            //   };
-            // }
-          }
-
-          if(action.name=="singer"){
-            newFiltSinger = action.filt;
-            newState.filtSinger = newFiltSinger;
-            // for (let i = 0; i < newStateContent.length; i++) {
-            //   if(action.filt.indexOf(newStateContent[i].singer) > -1){
-            //     console.log(newStateContent[i])
-            //     newCont.push(newStateContent[i])
-            //   }
-            //   else {
-            //     console.log("failed")
-            //     continue;
-            //   };
-            // }
-          }
-
-          for (let i = 0; i < newStateContent.length; i++) {
-            if(newFiltSinger&&newFiltYear&&newFiltGanre!=null){
-                if( (newFiltSinger.indexOf(newStateContent[i].singer) > -1)
-                    && (newState.filtYear.indexOf(newStateContent[i].year) > -1)
-                    && (newState.filtGanre.indexOf(newStateContent[i].ganre) > -1)
-                    ){
-                console.log(newStateContent[i])
-                newCont.push(newStateContent[i])
+        newCont = newCurrContent.filter(word => {
+            let total = 0
+            let objLength = Object.keys(newFilt).length;
+            for ( var key in newFilt){
+                if(word[key] == newFilt[key]){
+                  total ++
                 }
             }
-            else {
-              console.log("failed")
-              continue;
-            };
-          }
-          
-          newStateFiltContent = newCont;
-          newState.filtContent = newStateFiltContent
-          console.log(newState)
-        
-        
-        return newState
+            if(total==objLength) return true 
+            else return false 
+        });
 
+        newStateContent = newCont;
+        newStateFiltContent = newCont
+        newState.content = newStateContent
+        newState.filtContent = newStateFiltContent
+
+        return newState
     }
 
     case TRACK_ARRANGE: {
-  
             let newState = state
             let newCont = state.content
+                // if( (action.elem.substr(-3,3)) == "rev"){
+                //     console.log(action.elem.substr(-3,3))
+                //     newCont.sort(function(a, b){
+                //         if(a[action.elem] > b[action.elem]) return -1;
+                //         if(a[action.elem] < b[action.elem]) return 1;
+                //         return 0;
+                //     })
+                //     console.log(newCont)
+                // }
+                
+                // else{
+                //     console.log(action.elem.substr(-3,3))
+                //     newCont.sort(function(a, b){
+                //         if(a[action.elem] < b[action.elem]) return -1;
+                //         if(a[action.elem] > b[action.elem]) return 1;
+                //         return 0;
+                //     })
+                //     console.log(newCont)
+                // }
 
             if(action.elem=="singer"){
                 newCont.sort(function(a, b){
@@ -224,6 +176,8 @@ function tracksSelect(state=initState,action) {
                     return 0;
                 })
             }
+
+            console.log(newState)
 
             return newState
 
