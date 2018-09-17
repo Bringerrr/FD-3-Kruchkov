@@ -1,0 +1,131 @@
+.TrackFlex{
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.TableContainer{
+  float: left;
+  width: 65%;
+  max-width: 490px;
+}
+
+.TrackTable{
+  border-collapse: collapse;
+}
+
+.TrackTable th{
+  font-size: 12px;
+}
+
+.TrackTable td{
+  padding-right: 15px;
+}
+
+.TrackTable_Header{
+  background-color: rgb(236,240,241);
+  position: relative;
+  padding: 5px;
+  text-align: left;
+}
+
+.TrackTable_Header>span{
+  position: relative;
+  left: 0;
+  text-align: left;
+}
+
+.TrackTable_Header>div{
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.Arrange{
+  position: relative;
+  width: 19px;
+  height: 19px;
+  background-color: transparent;
+}
+
+.Arrange > .ArrangeState{
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.Down{
+  top: 100%;
+  border: 6px solid transparent;	border-top: 7px solid green;
+}
+
+.Up{
+  top: 0%;
+  border: 6px solid transparent;	border-bottom: 7px solid green;
+}
+
+.FilterForm{
+  background-color: rgb(236,240,241);
+  position: relative;
+  float: left;
+  min-width: 100px;
+  padding: 10px;
+}
+
+.FilterSelect{
+  min-width: 100px
+}
+
+.Navigation{
+  clear: both;
+}
+
+.PageNumbers{
+  float: left;
+  width: 60%;
+  max-width: 350px;
+  list-style: none;
+  display: flex;
+}
+
+.PageNumbers_Elem{
+  display: block;
+    position: relative;
+    margin-right: 0.3em;
+    color: black;
+    user-select: none;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.PageNumbers_Elem__Center{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.Active{
+  background-color: rgb(200, 200, 200);
+  border:1px solid black
+}
+
+.NumberControl{
+  float: left;
+  width: 29%;
+  margin: 10px;
+}
+
+.NumberControl_Button{
+  width: 20px;
+  text-align: center;
+  border: 1px solid #000;
+  float: left;
+  padding: 2px;
+  margin-left: 1px;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=main.bundle.b07ed42af4692e4460ff.css.map*/
